@@ -36,7 +36,7 @@
 
       if (result.data && result.data.profilePicture) {
         preview.innerHTML = `
-          <p>Imagem enviada com sucesso!</p>
+          <p>${result.message}</p>
           <img src="${result.data.profilePicture}" alt="Imagem enviada" width="200" />
         `;
       } else {
