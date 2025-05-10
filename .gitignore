@@ -1,2 +1,5 @@
 .env
 /node_modules
+dev.db
+/generated
+/prisma/migrations
