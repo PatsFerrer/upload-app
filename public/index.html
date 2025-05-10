@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload de Imagem</title>
+</head>
+
+<body>
+  <h1>Teste de Upload</h1>
+
+  <form id="uploadForm">
+    <input type="text" name="name" placeholder="Seu nome" required /><br /><br />
+    <input type="file" name="image" accept="image/*" required /><br /><br />
+    <button type="submit">Enviar Imagem</button>
+  </form>
+
+  <div id="preview" style="margin-top:20px;"></div>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const preview = document.getElementById('preview');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (result.data && result.data.profilePicture) {
+        preview.innerHTML = `
+          <p>Imagem enviada com sucesso!</p>
+          <img src="${result.data.profilePicture}" alt="Imagem enviada" width="200" />
+        `;
+      } else {
+        preview.innerHTML = '<p>Erro no upload.</p>';
+      }
+    });
+  </script>
+</body>
+
+</html>
